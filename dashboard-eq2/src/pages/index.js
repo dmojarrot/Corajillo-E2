@@ -1,5 +1,4 @@
-import Dashboard from "@/components/Dashboard"
-import InventoryTable from "@/components/Tables"
+import Dashboard from "@/layout/Dashboard"
 import Head from "next/head"
 
 export default function Home() {
