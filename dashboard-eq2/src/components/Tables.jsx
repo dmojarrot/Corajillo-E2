@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 const inventory = [
   {
     name: "Corajillo terminado",
@@ -9,8 +8,22 @@ const inventory = [
   },
   {
     name: "Bayleys terminado",
-    unidades: "100",
+    unidades: "0",
     "# lote": "AC003434",
+    "fecha de vencimiento": "2021-01-01",
+    "fecha de expedición": "2021-01-01",
+  },
+  {
+    name: "Corajillo ensamblado y etiquetado",
+    unidades: "0",
+    "# lote": "",
+    "fecha de vencimiento": "2021-01-01",
+    "fecha de expedición": "2021-01-01",
+  },
+  {
+    name: "Bayleys ensamblado y etiquetado",
+    unidades: "0",
+    "# lote": "",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
   },
@@ -67,38 +80,70 @@ const pedidos = [
     "fecha de pedido": "2021-01-01",
     "fecha de entrega": "2021-01-01",
   },
+  {
+    name: "Bayleys Corajillos",
+    unidades: "100",
+    "fecha de pedido": "2021-01-01",
+    "fecha de entrega": "2021-01-01",
+  },
 ]
 
 const faltantes = [
   {
-    name: "Embotellar cafe",
-    unidades: "540",
-    "fecha de entrega": "2021-01-01",
-    estado: "disponible",
-  },
-  {
-    name: "Embotellar licor de hierbas",
-    unidades: "540",
+    name: "Café",
+    unidades: "400",
     "fecha de entrega": "2021-01-01",
     estado: "en trabajo",
+    "# linea": "1",
+  },
+  {
+    name: "Licor de hierbas",
+    unidades: "300",
+    "fecha de entrega": "2021-01-01",
+    estado: "en trabajo",
+    "# linea": "2",
+  },
+  {
+    name: "Ensamblar/etiquetar corajillo",
+    unidades: "100",
+    "fecha de entrega": "2021-01-01",
+    estado: "disponible",
+    "# linea": "",
+  },
+  {
+    name: "Ensamblar/etiquetar corajillo",
+    unidades: "400",
+    "fecha de entrega": "2021-01-01",
+    estado: "en espera",
+    "# linea": "",
+  },
+  {
+    name: "Ensamblar/etiquetar bayleys",
+    unidades: "100",
+    "fecha de entrega": "2021-01-01",
+    estado: "a espera",
+    "# linea": "",
   },
   {
     name: "Empacar corajillo",
-    unidades: "400",
+    unidades: "500",
     "fecha de entrega": "2021-01-01",
-    estado: "a espera",
+    estado: "en espera",
+    "# linea": "",
   },
   {
-    name: "Etiquetar corajillo",
-    unidades: "400",
+    name: "Empacar bayleys",
+    unidades: "100",
     "fecha de entrega": "2021-01-01",
-    estado: "a espera",
+    estado: "en espera",
+    "# linea": "",
   },
   {
     name: "Empacar corajillo",
     unidades: "100",
     "fecha de entrega": "2021-01-01",
     estado: "completo",
+    "# linea": "",
   },
 ]
 
@@ -109,9 +154,9 @@ export default function Tables() {
         {/* Faltantes */}
         <div>
           <div className="flex justify-between mb-2 items-center">
-            <h1 className="text-lg font-bold pl-6">Faltantes</h1>
+            <h1 className="text-lg font-bold pl-6">Calculos producción</h1>
             <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
-              + Agregar
+              + Extra
             </button>
           </div>
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -144,7 +189,12 @@ export default function Tables() {
                       >
                         Estado
                       </th>
-
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        # linea
+                      </th>
                       <th scope="col" className="relative px-6 py-3">
                         <span className="sr-only">Edit</span>
                       </th>
@@ -153,19 +203,19 @@ export default function Tables() {
                   <tbody>
                     {faltantes.map((pedido, pedidoIdx) => (
                       <tr
-                        key={pedido.email}
-                        className={
-                          pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                        }
+                        key={pedidoIdx}
+                        className={`hover:bg-gray-200
+                          ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                        `}
                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-2 text-sm font-medium text-gray-900">
                           {pedido.name}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-2 text-sm text-gray-500">
                           {pedido.unidades}
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-2 text-sm text-gray-500">
                           {pedido["fecha de entrega"]}
                         </td>
 
@@ -184,8 +234,11 @@ export default function Tables() {
                         >
                           {pedido["estado"]}
                         </td>
+                        <td className="px-6 py-2 text-sm text-gray-500">
+                          {pedido["# linea"]}
+                        </td>
 
-                        <td className=" whitespace-nowrap text-right text-sm font-medium py-4 px-6">
+                        <td className=" whitespace-nowrap text-right text-sm font-medium py-2 px-6">
                           <a
                             href="#"
                             className="text-indigo-600 hover:text-indigo-900"
@@ -248,25 +301,25 @@ export default function Tables() {
                   <tbody>
                     {pedidos.map((pedido, pedidoIdx) => (
                       <tr
-                        key={pedido.email}
-                        className={
-                          pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                        }
+                        key={pedidoIdx}
+                        className={`hover:bg-gray-200
+                          ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                        `}
                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                           {pedido.name}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                           {pedido.unidades}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                           {pedido["fecha de pedido"]}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                           {pedido["fecha de entrega"]}
                         </td>
 
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
                           <a
                             href="#"
                             className="text-indigo-600 hover:text-indigo-900"
@@ -335,27 +388,27 @@ export default function Tables() {
                 <tbody>
                   {inventory.map((pedido, pedidoIdx) => (
                     <tr
-                      key={pedido.email}
-                      className={
-                        pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      }
+                      key={pedidoIdx}
+                      className={`hover:bg-gray-200
+                          ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                        `}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                         {pedido.name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         {pedido.unidades}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         {pedido["# lote"]}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         {pedido["fecha de expedición"]}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         {pedido["fecha de vencimiento"]}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
                         <a
                           href="#"
                           className="text-indigo-600 hover:text-indigo-900"

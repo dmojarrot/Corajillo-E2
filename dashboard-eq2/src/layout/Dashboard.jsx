@@ -15,7 +15,7 @@ export default function Dashboard() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl pt-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl pt-6 px-2 md:px-0">
             <Tables />
           </div>
         </main>
