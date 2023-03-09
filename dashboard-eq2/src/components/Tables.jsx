@@ -1,87 +1,98 @@
 const inventory = [
   {
-    name: "Corajillo terminado",
+    nombre: "Corajillo terminado",
     unidades: "100",
     "# lote": "AC003434",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
   {
-    name: "Bayleys terminado",
+    nombre: "Bayleys terminado",
     unidades: "0",
     "# lote": "AC003434",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
   {
-    name: "Corajillo ensamblado y etiquetado",
+    nombre: "Corajillo ensamblado y etiquetado",
     unidades: "0",
     "# lote": "",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
   {
-    name: "Bayleys ensamblado y etiquetado",
+    nombre: "Bayleys ensamblado y etiquetado",
     unidades: "0",
     "# lote": "",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
   {
-    name: "Café",
+    nombre: "Café",
     unidades: "100",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "D",
   },
   {
-    name: "Licor de hierbas",
+    nombre: "Licor de hierbas",
     unidades: "200",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
   {
-    name: "Bayleys",
+    nombre: "Bayleys",
     unidades: "200",
     "# lote": "AC003434",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "B",
   },
   {
-    name: "Shakers",
+    nombre: "Shakers",
     unidades: "3,000",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "A",
   },
 
   {
-    name: "Botellitas de plastico",
+    nombre: "Botellitas de plastico",
     unidades: "2,000",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "X",
   },
   {
-    name: "Etiqueta de corajillo",
+    nombre: "Etiqueta de corajillo",
     unidades: "1,000",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
   {
-    name: "Etiqueta de bayleys",
+    nombre: "Etiqueta de bayleys",
     unidades: "1,000",
     "fecha de vencimiento": "2021-01-01",
     "fecha de expedición": "2021-01-01",
+    proveedor: "",
   },
 ]
 
 const pedidos = [
   {
-    name: "Corajillos",
+    nombre: "Corajillos",
     unidades: "600",
     "fecha de pedido": "2021-01-01",
     "fecha de entrega": "2021-01-01",
   },
   {
-    name: "Bayleys Corajillos",
+    nombre: "Bayleys Corajillos",
     unidades: "100",
     "fecha de pedido": "2021-01-01",
     "fecha de entrega": "2021-01-01",
@@ -90,60 +101,68 @@ const pedidos = [
 
 const faltantes = [
   {
-    name: "Café",
+    nombre: "Café",
     unidades: "400",
     "fecha de entrega": "2021-01-01",
     estado: "en trabajo",
     "# linea": "1",
+    tiempo: "1 hora",
   },
   {
-    name: "Licor de hierbas",
+    nombre: "Licor de hierbas",
     unidades: "300",
     "fecha de entrega": "2021-01-01",
     estado: "en trabajo",
     "# linea": "2",
+    tiempo: "1 hora",
   },
   {
-    name: "Ensamblar/etiquetar corajillo",
+    nombre: "Ensamblar/etiquetar corajillo",
     unidades: "100",
     "fecha de entrega": "2021-01-01",
     estado: "disponible",
     "# linea": "",
+    tiempo: "1 hora",
   },
   {
-    name: "Ensamblar/etiquetar corajillo",
+    nombre: "Ensamblar/etiquetar corajillo",
     unidades: "400",
     "fecha de entrega": "2021-01-01",
     estado: "en espera",
     "# linea": "",
+    tiempo: "1 hora",
   },
   {
-    name: "Ensamblar/etiquetar bayleys",
+    nombre: "Ensamblar/etiquetar bayleys",
     unidades: "100",
     "fecha de entrega": "2021-01-01",
-    estado: "a espera",
+    estado: "en espera",
     "# linea": "",
+    tiempo: "1 hora",
   },
   {
-    name: "Empacar corajillo",
+    nombre: "Empacar corajillo",
     unidades: "500",
     "fecha de entrega": "2021-01-01",
     estado: "en espera",
     "# linea": "",
+    tiempo: "1 hora",
   },
   {
-    name: "Empacar bayleys",
+    nombre: "Empacar bayleys",
     unidades: "100",
     "fecha de entrega": "2021-01-01",
     estado: "en espera",
     "# linea": "",
+    tiempo: "1 hora",
   },
   {
-    name: "Empacar corajillo",
+    nombre: "Empacar corajillo",
     unidades: "100",
     "fecha de entrega": "2021-01-01",
     estado: "completo",
-    "# linea": "",
+    "# linea": "8",
+    tiempo: "1 hora",
   },
 ]
 
@@ -167,33 +186,39 @@ export default function Tables() {
                     <tr>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Name
+                        Nombre
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Unidades
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Fecha de entrega
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Estado
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         # linea
+                      </th>
+                      <th
+                        scope="col"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Tiempo
                       </th>
                       <th scope="col" className="relative px-6 py-3">
                         <span className="sr-only">Edit</span>
@@ -209,7 +234,7 @@ export default function Tables() {
                         `}
                       >
                         <td className="px-6 py-2 text-sm font-medium text-gray-900">
-                          {pedido.name}
+                          {pedido.nombre}
                         </td>
                         <td className="px-6 py-2 text-sm text-gray-500">
                           {pedido.unidades}
@@ -237,6 +262,9 @@ export default function Tables() {
                         <td className="px-6 py-2 text-sm text-gray-500">
                           {pedido["# linea"]}
                         </td>
+                        <td className="px-6 py-2 text-sm text-gray-500 whitespace-nowrap">
+                          {pedido.tiempo}
+                        </td>
 
                         <td className=" whitespace-nowrap text-right text-sm font-medium py-2 px-6">
                           <a
@@ -256,7 +284,7 @@ export default function Tables() {
         </div>
         {/* Pedidos */}
         <div>
-          <div className="flex justify-between mb-2 items-center">
+          <div className="flex justify-between my-7 lg:my-0 items-center">
             <h1 className="text-lg font-bold pl-6">Pedidos</h1>
             <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
               + Agregar
@@ -270,25 +298,25 @@ export default function Tables() {
                     <tr>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Name
+                        Nombre
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Unidades
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Fecha de pedido
                       </th>
                       <th
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Fecha de entrega
                       </th>
@@ -307,7 +335,7 @@ export default function Tables() {
                         `}
                       >
                         <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {pedido.name}
+                          {pedido.nombre}
                         </td>
                         <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                           {pedido.unidades}
@@ -339,8 +367,8 @@ export default function Tables() {
       {/* Inventario */}
       <div>
         <div className="flex justify-between mb-2 items-center">
-          <h1 className="text-lg font-bold pl-6 mt-5">Inventario actual</h1>
-          <button className=" text-white bg-indigo-600 font-bold px-3 py-1 mt-5 rounded">
+          <h1 className="text-lg font-bold pl-6">Inventario actual</h1>
+          <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
             + Agregar
           </button>
         </div>
@@ -354,7 +382,7 @@ export default function Tables() {
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Name
+                      Nombre
                     </th>
                     <th
                       scope="col"
@@ -380,6 +408,12 @@ export default function Tables() {
                     >
                       Fecha de vencimiento
                     </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Proveedor
+                    </th>
                     <th scope="col" className="relative px-6 py-3">
                       <span className="sr-only">Edit</span>
                     </th>
@@ -394,7 +428,7 @@ export default function Tables() {
                         `}
                     >
                       <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {pedido.name}
+                        {pedido.nombre}
                       </td>
                       <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         {pedido.unidades}
@@ -407,6 +441,9 @@ export default function Tables() {
                       </td>
                       <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                         {pedido["fecha de vencimiento"]}
+                      </td>
+                      <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                        {pedido.proveedor}
                       </td>
                       <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
                         <a
