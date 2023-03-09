@@ -1,3 +1,5 @@
+import SelectMenu from "./SelectMenu"
+
 const inventory = [
   {
     nombre: "Corajillo terminado",
@@ -160,7 +162,7 @@ const faltantes = [
     nombre: "Empacar corajillo",
     unidades: "100",
     "fecha de entrega": "2021-01-01",
-    estado: "completo",
+    estado: "finalizado",
     "# linea": "8",
     tiempo: "1 hora",
   },
@@ -181,7 +183,7 @@ export default function Tables() {
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="min-w-full divide-y divide-gray-200  overflow-visible">
                   <thead className="bg-gray-50">
                     <tr>
                       <th
@@ -229,7 +231,7 @@ export default function Tables() {
                     {faltantes.map((pedido, pedidoIdx) => (
                       <tr
                         key={pedidoIdx}
-                        className={`hover:bg-gray-200
+                        className={`hover:bg-gray-100 
                           ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                         `}
                       >
@@ -243,21 +245,8 @@ export default function Tables() {
                         <td className="px-6 py-2 text-sm text-gray-500">
                           {pedido["fecha de entrega"]}
                         </td>
-
-                        <td
-                          className={`mx-6 my-4 px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-center
-                            ${
-                              pedido["estado"] === "disponible"
-                                ? " bg-green-100 text-green-800"
-                                : pedido["estado"] === "en trabajo"
-                                ? " bg-yellow-100 text-yellow-800"
-                                : pedido["estado"] === "completo"
-                                ? " bg-red-100 text-red-800"
-                                : " bg-gray-100 text-gray-800"
-                            }
-                          `}
-                        >
-                          {pedido["estado"]}
+                        <td>
+                          <SelectMenu state={pedido["estado"]} />
                         </td>
                         <td className="px-6 py-2 text-sm text-gray-500">
                           {pedido["# linea"]}
@@ -330,7 +319,7 @@ export default function Tables() {
                     {pedidos.map((pedido, pedidoIdx) => (
                       <tr
                         key={pedidoIdx}
-                        className={`hover:bg-gray-200
+                        className={`hover:bg-gray-100 
                           ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                         `}
                       >
@@ -423,7 +412,7 @@ export default function Tables() {
                   {inventory.map((pedido, pedidoIdx) => (
                     <tr
                       key={pedidoIdx}
-                      className={`hover:bg-gray-200
+                      className={`hover:bg-gray-100 
                           ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                         `}
                     >
