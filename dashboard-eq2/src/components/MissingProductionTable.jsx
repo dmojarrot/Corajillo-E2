@@ -73,7 +73,7 @@ function MissingProductionTable({ missingProduction }) {
                         {pedido.UNIDADES}
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
-                        {pedido["FECHA_DE_ENTREGA"]}
+                        {new Date(pedido["FECHA_DE_ENTREGA"]).toLocaleDateString()}
                       </td>
                       <td>
                         <SelectMenu state={pedido["ESTADO"]} />
