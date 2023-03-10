@@ -4,19 +4,19 @@ import Tables from "@/components/Tables"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
 
 const getInventory = async () => {
-  const res = await fetch("/api/amazon/getInventory")
+  const res = await fetch("/api/db/getInventory")
   const inventory = await res.json()
   return inventory
 }
 
 const getOrders = async () => {
-  const res = await fetch("/api/amazon/getOrders")
+  const res = await fetch("/api/db/getOrders")
   const orders = await res.json()
   return orders
 }
 
 const getMissingProduction = async () => {
-  const res = await fetch("/api/amazon/getMissingProduction")
+  const res = await fetch("/api/db/getMissingProduction")
   const missingProduction = await res.json()
   return missingProduction
 }

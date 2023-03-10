@@ -6,15 +6,7 @@ function MissingProductionTable({ missingProduction }) {
     <div>
       <div className="flex justify-between mb-2 items-center">
         <h1 className="text-lg font-bold pl-6">Calculos producción</h1>
-        <button
-          // onClick={() => {
-          //   add extra production to the database
-          //   addExtraProduction()
-          //   repopulate table with new data from database
-          //   queryClient.invalidateQueries({ queryKey: ["missingProduction"]
-          // }}
-          className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
-        >
+        <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
           + Extra
         </button>
       </div>

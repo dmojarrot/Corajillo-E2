@@ -1,20 +1,22 @@
-import { QueryClient } from "@tanstack/react-query"
+import { useState } from "react"
+import { AddOrderModal } from "./AddOrderModal"
 
 function OrdersTable({ orders }) {
-  // const queryClient = QueryClient()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
     <div>
+      <AddOrderModal
+        openModal={isModalOpen}
+        setOpenModal={setIsModalOpen}
+        formAction="api/db/addOrder"
+      />
       <div className="flex justify-between my-7 lg:my-0 items-center">
         <h1 className="text-lg font-bold pl-6">Pedidos</h1>
         <button
-          // onClick={() => {
-          //   // add new order to the database
-          //   // addOrder()
-          //   // repopulate table with new data from database
-          //   void queryClient.invalidateQueries({ queryKey: ["orders"] })
-          //   return
-          // }}
+          onClick={() => {
+            setIsModalOpen(true)
+          }}
           className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
         >
           + Agregar
@@ -30,13 +32,13 @@ function OrdersTable({ orders }) {
                     scope="col"
                     className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Nombre
+                    GAMA
                   </th>
                   <th
                     scope="col"
                     className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Unidades
+                    PIEZAS
                   </th>
                   <th
                     scope="col"
@@ -65,18 +67,18 @@ function OrdersTable({ orders }) {
                         `}
                   >
                     <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {pedido.nombre}
+                      {pedido.GAMA}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido.unidades}
+                      {pedido.PIEZAS}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(pedido["fecha_de_pedido"]).toLocaleDateString()}
+                      {new Date(pedido["FECHA_DE_PEDIDO"]).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                       {}
                       {new Date(
-                        pedido["fecha_de_entrega"]
+                        pedido["FECHA_DE_ENTREGA"]
                       ).toLocaleDateString()}
                     </td>
 
