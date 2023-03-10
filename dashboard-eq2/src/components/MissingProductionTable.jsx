@@ -67,25 +67,25 @@ function MissingProductionTable({ missingProduction }) {
                         `}
                     >
                       <td className="px-6 py-2 text-sm font-medium text-gray-900">
-                        {pedido.nombre}
+                        {pedido.NOMBRE}
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
-                        {pedido.unidades}
+                        {pedido.UNIDADES}
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
-                        {pedido["fecha de entrega"]}
+                        {new Date(pedido["FECHA_DE_ENTREGA"]).toLocaleDateString()}
                       </td>
                       <td>
-                        <SelectMenu state={pedido["estado"]} />
+                        <SelectMenu state={pedido["ESTADO"]} />
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
                         <input
                           className="w-7 h-4 bg-transparent"
-                          value={pedido["# linea"]}
+                          value={pedido["NUMERO_DE_LINEA"]}
                         />
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500 whitespace-nowrap">
-                        {pedido.tiempo}
+                        {pedido["TIEMPO_HORAS"]}
                       </td>
 
                       <td className=" whitespace-nowrap text-right text-sm font-medium py-2 px-6">
