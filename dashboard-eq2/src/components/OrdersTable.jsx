@@ -1,17 +1,19 @@
-// import { QueryClient } from "@tanstack/react-query"
+import { QueryClient } from "@tanstack/react-query"
 
 function OrdersTable({ orders }) {
-  // const queryClient = new QueryClient()
+  // const queryClient = QueryClient()
+
   return (
     <div>
       <div className="flex justify-between my-7 lg:my-0 items-center">
         <h1 className="text-lg font-bold pl-6">Pedidos</h1>
         <button
           // onClick={() => {
-          //   add new order to the database
-          //   addOrder()
-          //   repopulate table with new data from database
-          //   queryClient.invalidateQueries({ queryKey: ["orders"]
+          //   // add new order to the database
+          //   // addOrder()
+          //   // repopulate table with new data from database
+          //   void queryClient.invalidateQueries({ queryKey: ["orders"] })
+          //   return
           // }}
           className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
         >
@@ -69,10 +71,13 @@ function OrdersTable({ orders }) {
                       {pedido.unidades}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido["fecha de pedido"]}
+                      {new Date(pedido["fecha_de_pedido"]).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido["fecha de entrega"]}
+                      {}
+                      {new Date(
+                        pedido["fecha_de_entrega"]
+                      ).toLocaleDateString()}
                     </td>
 
                     <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">

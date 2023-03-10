@@ -1,5 +1,3 @@
-import React from "react"
-
 function InventoryTable({ inventory }) {
   return (
     <div>
@@ -27,38 +25,33 @@ function InventoryTable({ inventory }) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Nombre
+                    GAMA
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Unidades
+                    ARTICULO-DESCRIPCION
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    # Lote
+                    Costo
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Fecha de expedición
+                    Piezas
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Fecha de vencimiento
+                    Total ($)
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Proveedor
-                  </th>
+
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -73,23 +66,21 @@ function InventoryTable({ inventory }) {
                         `}
                   >
                     <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {pedido.nombre}
+                      {pedido.GAMA}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido.unidades}
+                      {pedido["ARTICULO-DESCRIPCION"]}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido["# lote"]}
+                      {pedido.COSTO}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido["fecha de expedición"]}
+                      {pedido.PIEZAS}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido["fecha de vencimiento"]}
+                      {pedido.TOTAL}
                     </td>
-                    <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido.proveedor}
-                    </td>
+
                     <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
                       <a
                         href="#"
