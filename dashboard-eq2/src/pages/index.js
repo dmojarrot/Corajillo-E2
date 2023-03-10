@@ -1,7 +1,39 @@
-import Dashboard from "@/layout/Dashboard"
 import Head from "next/head"
+import NavBar from "@/components/NavBar"
+import Tables from "@/components/Tables"
+import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
+
+const getInventory = async () => {
+  const res = await fetch("/api/amazon/getInventory")
+  const inventory = await res.json()
+  return inventory
+}
+
+const getOrders = async () => {
+  const res = await fetch("/api/amazon/getOrders")
+  const orders = await res.json()
+  return orders
+}
+
+const getMissingProduction = async () => {
+  const res = await fetch("/api/amazon/getMissingProduction")
+  const missingProduction = await res.json()
+  return missingProduction
+}
 
 export default function Home() {
+  const inventory = useQuery({
+    queryKey: ["inventory"],
+    queryFn: getInventory,
+  })
+
+  const orders = useQuery({ queryKey: ["orders"], queryFn: getOrders })
+
+  const missingProduction = useQuery({
+    queryKey: ["missingProduction"],
+    queryFn: getMissingProduction,
+  })
+
   return (
     <>
       <Head>
@@ -11,8 +43,43 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Dashboard />
+        <div className="min-h-full">
+          <NavBar />
+
+          <header className="bg-white shadow">
+            <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                Dashboard
+              </h1>
+            </div>
+          </header>
+          <main>
+            <div className="mx-auto max-w-7xl pt-6 px-2 md:px-0">
+              <Tables
+                inventory={inventory}
+                orders={orders}
+                missingProduction={missingProduction}
+              />
+            </div>
+          </main>
+        </div>
       </main>
     </>
   )
+}
+
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getServerSideProps() {
+  // this query stuff is a highly efficient data fetching library
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(["inventory"], getInventory)
+  await queryClient.prefetchQuery(["orders"], getOrders)
+  await queryClient.prefetchQuery(["missingProduction"], getMissingProduction)
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
 }

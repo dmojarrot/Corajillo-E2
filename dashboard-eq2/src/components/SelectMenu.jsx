@@ -41,7 +41,7 @@ export default function SelectMenu({ state }) {
                       ? " text-green-800"
                       : selected === "en trabajo"
                       ? "text-yellow-800"
-                      : selected === "completo"
+                      : selected === "finalizado"
                       ? "text-red-800"
                       : "text-gray-800"
                   }`}
