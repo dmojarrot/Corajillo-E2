@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid"
 
@@ -8,22 +8,48 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function SelectMenu({ state }) {
-  const [selected, setSelected] = useState(state)
+export default function SelectMenu({ state, id }) {
+  const handleSubmit = async (val) => {
+    // Get data from select and id from props.
+    const data = {
+      estado: val,
+      id,
+    }
+
+    // Send a POST request to the server with the data.
+    const response = await fetch("api/db/updateMissingProductionState", {
+      // Body of the request is the JSON data we created above.
+      body: JSON.stringify(data),
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // The method is POST because we are sending data.
+      method: "POST",
+    })
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means it works.
+    const result = await response.json()
+
+    if (result) {
+      return
+    }
+  }
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
-      {({ open }) => (
+    <Listbox defaultValue={state} name="state" onChange={handleSubmit}>
+      {({ open, value }) => (
         <>
           <div className="relative my-2">
             <Listbox.Button
               className={`relative whitespace-nowrap w-full cursor-default rounded-md py-1.5 pl-2 pr-7 text-left text-gray-900 focus:outline-none sm:text-sm sm:leading-6
                             ${
-                              selected === "disponible"
+                              value === "disponible"
                                 ? " bg-green-100  text-green-800 "
-                                : selected === "en trabajo"
+                                : value === "en trabajo"
                                 ? " bg-yellow-100 text-yellow-800 "
-                                : selected === "finalizado"
+                                : value === "finalizado"
                                 ? " bg-red-100 text-red-800 "
                                 : " bg-gray-200 text-gray-800 "
                             }
@@ -31,17 +57,17 @@ export default function SelectMenu({ state }) {
             >
               <span className="flex items-center">
                 <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-center">
-                  {selected}
+                  {value}
                 </span>
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                 <ChevronUpDownIcon
                   className={`"h-5 w-5 opacity-90" ${
-                    selected === "disponible"
+                    value === "disponible"
                       ? " text-green-800"
-                      : selected === "en trabajo"
+                      : value === "en trabajo"
                       ? "text-yellow-800"
-                      : selected === "finalizado"
+                      : value === "finalizado"
                       ? "text-red-800"
                       : "text-gray-800"
                   }`}
