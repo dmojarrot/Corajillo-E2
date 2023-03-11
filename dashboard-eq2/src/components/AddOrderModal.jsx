@@ -10,7 +10,7 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
 
     // Cast the event target to an html form
     const form = event.target
-    console.log(form)
+
     // Get data from the form.
     const data = {
       gama: form.gama.value,
@@ -18,8 +18,6 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
       fechaPedido: form.fechaPedido.value,
       fechaEntrega: form.fechaEntrega.value,
     }
-
-    console.log(data)
 
     // Send the form data to our API and get a response.
     const response = await fetch(formAction, {

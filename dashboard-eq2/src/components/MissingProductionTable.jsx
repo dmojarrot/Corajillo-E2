@@ -1,16 +1,15 @@
-import React from "react"
 import SelectMenu from "./SelectMenu"
 
 function MissingProductionTable({ missingProduction }) {
   return (
     <div>
-      <div className="flex justify-between mb-2 items-center">
+      <div className="flex justify-between my-7 lg:my-0 items-center mb-2">
         <h1 className="text-lg font-bold pl-6">Calculos producción</h1>
         <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
-          + Extra
+          + Agregar
         </button>
       </div>
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div className="overflow-x-auto overflow-y-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200  overflow-visible">

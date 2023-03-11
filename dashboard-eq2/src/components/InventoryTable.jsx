@@ -1,13 +1,27 @@
+import { useState } from "react"
+import { AddInventoryModal } from "./AddInventoryModal"
+
 function InventoryTable({ inventory }) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <div>
-      <div className="flex justify-between mb-2 items-center">
-        <h1 className="text-lg font-bold pl-6">Inventario actual</h1>
-        <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
+      <AddInventoryModal
+        openModal={isModalOpen}
+        setOpenModal={setIsModalOpen}
+        formAction="api/db/addInventory"
+      />
+      <div className="flex justify-between mb-7 lg:my-0 items-center">
+        <h1 className="text-lg font-bold pl-6">Inventario (procesos)</h1>
+        <button
+          className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
+          onClick={() => {
+            setIsModalOpen(true)
+          }}
+        >
           + Agregar
         </button>
       </div>
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div className="overflow-x-auto overflow-y-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">

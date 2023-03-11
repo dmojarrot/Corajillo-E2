@@ -1,7 +1,49 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 
 export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
+  const queryClient = useQueryClient()
+  const handleSubmit = async (event) => {
+    // Stop the form from submitting and refreshing the page.
+    event.preventDefault()
+
+    // Cast the event target to an html form
+    const form = event.target
+
+    // Get data from the form.
+    const data = {
+      gama: form.gama.value,
+      articuloDescripcion: form.articuloDescripcion.value,
+      costo: form.costo.value,
+      piezas: form.piezas.value,
+      total: form.total.value,
+    }
+
+    // Send the form data to our API and get a response.
+    const response = await fetch(formAction, {
+      // Body of the request is the JSON data we created above.
+      body: JSON.stringify(data),
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // The method is POST because we are sending data.
+      method: "POST",
+    })
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json()
+    console.log(result)
+    if (result) {
+      // If the form works, close the modal.
+      setOpenModal(false)
+      // Invalidate the orders query to trigger a re-fetch.
+      void queryClient.invalidateQueries({ queryKey: ["inventory"] })
+      return
+    }
+  }
   return (
     <>
       <Transition.Root show={openModal} as={Fragment}>
@@ -34,7 +76,7 @@ export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
                     <button
                       type="button"
                       onClick={() => setOpenModal(false)}
-                      className="absolute top-2.5 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="absolute top-2.5 right-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-400 "
                       data-modal-toggle="deleteModal"
                     >
                       <svg
@@ -55,12 +97,11 @@ export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
 
                     <form
                       className="flex items-center justify-center space-x-4"
-                      method="POST"
-                      action={formAction}
+                      onSubmit={handleSubmit}
                     >
                       <div className="flex flex-col gap-2 w-full">
                         <h1 className="text-2xl font-bold text-gray-900">
-                          Agregar pedido
+                          Agregar a inventario (procesos)
                         </h1>
                         <label
                           htmlFor="gama"
@@ -72,6 +113,7 @@ export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           type="text"
                           name="gama"
+                          required
                         />
                         <label
                           htmlFor="articuloDescripcion"
@@ -80,9 +122,10 @@ export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
                           Articulo descripcion
                         </label>
                         <input
-                          type="number"
-                          name="articuloDescripcion"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          type="text"
+                          name="articuloDescripcion"
+                          required
                         />
 
                         <label
@@ -92,9 +135,10 @@ export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
                           Costo
                         </label>
                         <input
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           type="number"
                           name="costo"
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          required
                         />
                         <label
                           htmlFor="piezas"
@@ -105,6 +149,17 @@ export function AddInventoryModal({ openModal, setOpenModal, formAction }) {
                         <input
                           type="number"
                           name="piezas"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        />
+                        <label
+                          htmlFor="total"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Total
+                        </label>
+                        <input
+                          type="number"
+                          name="total"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         />
                         <button

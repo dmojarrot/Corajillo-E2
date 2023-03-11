@@ -15,7 +15,7 @@ export default function SelectMenu({ state }) {
     <Listbox value={selected} onChange={setSelected}>
       {({ open }) => (
         <>
-          <div className="relative mt-2">
+          <div className="relative my-2">
             <Listbox.Button
               className={`relative whitespace-nowrap w-full cursor-default rounded-md py-1.5 pl-2 pr-7 text-left text-gray-900 focus:outline-none sm:text-sm sm:leading-6
                             ${
