@@ -26,7 +26,7 @@ function MissingProductionTable({ missingProduction }) {
                     scope="col"
                     className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Unidades
+                    Piezas
                   </th>
                   <th
                     scope="col"
@@ -70,10 +70,12 @@ function MissingProductionTable({ missingProduction }) {
                         {pedido.NOMBRE}
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
-                        {pedido.UNIDADES}
+                        {pedido.PIEZAS}
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
-                        {new Date(pedido["FECHA_DE_ENTREGA"]).toLocaleDateString()}
+                        {new Date(
+                          pedido["FECHA_DE_ENTREGA"]
+                        ).toLocaleDateString()}
                       </td>
                       <td>
                         <SelectMenu state={pedido["ESTADO"]} />
