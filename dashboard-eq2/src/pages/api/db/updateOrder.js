@@ -5,9 +5,8 @@ export default async function handler(req, res) {
     req.body
   try {
     const { rows } = await ordersDB.query(
-      `UPDATE orders SET "GAMA" = $1, "PIEZAS" = $2, "FECHA_DE_PEDIDO" = $3, "FECHA_DE_ENTREGA" = $4 WHERE id = '${id}' RETURNING *`[
-        (gama, piezas, fechaPedido, fechaEntrega, id)
-      ]
+      `UPDATE orders SET "GAMA" = '${gama}', "PIEZAS" = '${piezas}', "FECHA_DE_PEDIDO" = '${fechaPedido}', "FECHA_DE_ENTREGA" = '${fechaEntrega}' WHERE id = '${id}' RETURNING *`
+    
     )
     res.status(200).json({ orders: rows })
   } catch (error) {
