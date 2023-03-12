@@ -8,7 +8,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function SelectMenu({ state, id }) {
+export default function SelectMenu({ state, id, ...args }) {
+  const { disabled } = args
   const handleSubmit = async (val) => {
     // Get data from select and id from props.
     const data = {
@@ -38,12 +39,17 @@ export default function SelectMenu({ state, id }) {
   }
 
   return (
-    <Listbox defaultValue={state} name="state" onChange={handleSubmit}>
+    <Listbox
+      defaultValue={state}
+      name="state"
+      onChange={handleSubmit}
+      disabled={disabled}
+    >
       {({ open, value }) => (
         <>
           <div className="relative my-2">
             <Listbox.Button
-              className={`relative whitespace-nowrap w-full cursor-default rounded-md py-1.5 pl-2 pr-7 text-left text-gray-900 focus:outline-none sm:text-sm sm:leading-6
+              className={`disabled:opacity-50 relative whitespace-nowrap w-full cursor-default rounded-md py-1.5 pl-2 pr-7 text-left text-gray-900 focus:outline-none sm:text-sm sm:leading-6
                             ${
                               value === "disponible"
                                 ? " bg-green-100  text-green-800 "

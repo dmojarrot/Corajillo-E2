@@ -1,6 +1,36 @@
 import SelectMenu from "./SelectMenu"
+import { useState } from "react"
 
 function MissingProductionTable({ missingProduction }) {
+  const [disabledRow, setDisabledRow] = useState()
+  const [value, setValue] = useState({ linea: null, tiempo: null, id: null })
+  const handleSubmit = async () => {
+    // Get data from the form.
+    const data = {
+      numeroLinea: value.linea,
+      tiempo: value.tiempo,
+      id: value.id,
+    }
+
+    // Send the form data to our API and get a response.
+    const response = await fetch("api/db/updateLineTimeProduction", {
+      // Body of the request is the JSON data we created above.
+      body: JSON.stringify(data),
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // The method is POST because we are sending data.
+      method: "POST",
+    })
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json()
+    if (result) {
+      return
+    }
+  }
   return (
     <div>
       <div className="flex justify-between my-7 lg:my-0 items-center mb-2">
@@ -81,21 +111,63 @@ function MissingProductionTable({ missingProduction }) {
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500">
                         <input
-                          className="w-7 h-4 bg-transparent"
-                          value={pedido["NUMERO_DE_LINEA"]}
+                          className="w-14 h-4 bg-transparent border border-gray-300 rounded-md py-3 px-1 disabled:border-transparent"
+                          type="number"
+                          defaultValue={pedido["NUMERO_DE_LINEA"]}
+                          onChange={(e) => {
+                            setValue({
+                              ...value,
+                              linea: e.target.valueAsNumber,
+                            })
+                          }}
+                          disabled={pedido.id === disabledRow ? false : true}
                         />
                       </td>
                       <td className="px-6 py-2 text-sm text-gray-500 whitespace-nowrap">
-                        {pedido["TIEMPO_HORAS"]}
+                        <input
+                          className="w-14 h-4 bg-transparent border border-gray-300 rounded-md py-3 px-1 disabled:border-transparent"
+                          type="number"
+                          defaultValue={pedido["TIEMPO_HORAS"]}
+                          onChange={(e) => {
+                            setValue({
+                              ...value,
+                              tiempo: e.target.valueAsNumber,
+                            })
+                          }}
+                          disabled={pedido.id === disabledRow ? false : true}
+                        />
                       </td>
 
                       <td className=" whitespace-nowrap text-right text-sm font-medium py-2 px-6">
-                        <a
-                          href="#"
+                        <button
+                          onClick={() => {
+                            if (
+                              pedido.id === disabledRow &&
+                              (value.linea !== pedido["NUMERO_DE_LINEA"] ||
+                                value.tiempo !== pedido["TIEMPO_HORAS"])
+                            ) {
+                              setDisabledRow()
+                              handleSubmit()
+                            } else if (pedido.id !== disabledRow) {
+                              setValue({
+                                linea: pedido["NUMERO_DE_LINEA"],
+                                tiempo: pedido["TIEMPO_HORAS"],
+                                id: pedido.id,
+                              })
+                              setDisabledRow(pedido.id)
+                            } else {
+                              setDisabledRow()
+                            }
+                          }}
                           className="text-indigo-600 hover:text-indigo-900"
                         >
-                          Edit
-                        </a>
+                          {!(pedido.id === disabledRow)
+                            ? "Editar"
+                            : value.linea === pedido["NUMERO_DE_LINEA"] &&
+                              value.tiempo === pedido["TIEMPO_HORAS"]
+                            ? "Cancelar"
+                            : "Guardar"}
+                        </button>
                       </td>
                     </tr>
                   )

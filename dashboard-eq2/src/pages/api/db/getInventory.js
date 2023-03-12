@@ -2,7 +2,7 @@ import inventoryDB from "@/db/inventoryDB"
 
 export default async function handler(req, res) {
   try {
-    // query to select materiaprima table (we only care of this one)
+    // query to select proceso table (we only care of this one)
     const { rows } = await inventoryDB.query(
       'SELECT * FROM proceso ORDER BY "GAMA"'
     )
