@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       [gama, articuloDescripcion, costo, piezas, total]
     )
     console.log(rows)
-    res.status(200).json({ orders: rows })
+    res.status(200).json({ inventory: rows })
   } catch (err) {
     console.log(err)
   }
