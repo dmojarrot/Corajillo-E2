@@ -3,6 +3,7 @@ import { AddInventoryModal } from "./AddInventoryModal"
 
 function InventoryTable({ inventory, title, formAction, queryKey }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const isTitleProductoTerminado = title === "Producto terminado" ? true : false
   return (
     <div>
       <AddInventoryModal
@@ -51,7 +52,7 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Piezas
+                    {isTitleProductoTerminado ? "Tarimas" : "Piezas"}
                   </th>
                   <th
                     scope="col"
