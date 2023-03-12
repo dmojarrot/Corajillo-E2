@@ -5,7 +5,7 @@ function MissingProductionTable({ missingProduction }) {
   const [disabledRow, setDisabledRow] = useState()
   const [value, setValue] = useState({ linea: null, tiempo: null, id: null })
   const handleSubmit = async () => {
-    // Get data from the form.
+    // get the data from the state
     const data = {
       numeroLinea: value.linea,
       tiempo: value.tiempo,
@@ -36,7 +36,7 @@ function MissingProductionTable({ missingProduction }) {
       <div className="flex justify-between my-7 lg:my-0 items-center mb-2">
         <h1 className="text-lg font-bold pl-6">Calculos producción</h1>
         <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
-          + Agregar
+          + Extra
         </button>
       </div>
       <div className="overflow-x-auto overflow-y-auto sm:-mx-6 lg:-mx-8">

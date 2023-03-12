@@ -2,7 +2,7 @@ import Head from "next/head"
 import NavBar from "@/components/NavBar"
 import Tables from "@/components/Tables"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import getInventory from "@/lib/get_inventory"
+import getInventory from "@/lib/get_inventory_proceso"
 import getOrders from "@/lib/get_orders"
 import getMissingProduction from "@/lib/get_missing_production"
 

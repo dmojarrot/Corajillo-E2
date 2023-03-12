@@ -1,19 +1,17 @@
 import { useState } from "react"
-import { AddInventoryModal } from "./AddInventoryModal"
+import { AddInventoryModalSaboresColores } from "./AddInventoryModalSaboresColores"
 
-function InventoryTable({ inventory, title, formAction, queryKey }) {
+function InventorySaboresColoresTable({ inventory, formAction }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <div>
-      <AddInventoryModal
-        title={title}
+      <AddInventoryModalSaboresColores
         openModal={isModalOpen}
         setOpenModal={setIsModalOpen}
         formAction={formAction}
-        queryKey={queryKey}
       />
       <div className="flex justify-between mb-7 lg:my-0 items-center">
-        <h1 className="text-lg font-bold pl-6">{title}</h1>
+        <h1 className="text-lg font-bold pl-6">Sabores y colores</h1>
         <button
           className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
           onClick={() => {
@@ -29,12 +27,6 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    GAMA
-                  </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -73,9 +65,6 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
                           ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                         `}
                   >
-                    <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {pedido.GAMA}
-                    </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                       {pedido["ARTICULO-DESCRIPCION"]}
                     </td>
@@ -83,7 +72,7 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
                       {pedido.COSTO}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                      {pedido.PIEZAS || pedido.TARIMAS}
+                      {pedido.PIEZAS}
                     </td>
                     <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                       {pedido.TOTAL}
@@ -108,4 +97,4 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
   )
 }
 
-export default InventoryTable
+export default InventorySaboresColoresTable

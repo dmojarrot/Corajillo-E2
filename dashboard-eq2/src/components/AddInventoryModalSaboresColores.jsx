@@ -2,12 +2,10 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 
-export function AddInventoryModal({
+export function AddInventoryModalSaboresColores({
   openModal,
   setOpenModal,
   formAction,
-  title,
-  queryKey,
 }) {
   const queryClient = useQueryClient()
   const handleSubmit = async (event) => {
@@ -19,7 +17,6 @@ export function AddInventoryModal({
 
     // Get data from the form.
     const data = {
-      gama: form.gama.value,
       articuloDescripcion: form.articuloDescripcion.value,
       costo: form.costo.value,
       piezas: form.piezas.value,
@@ -46,7 +43,7 @@ export function AddInventoryModal({
       // If the form works, close the modal.
       setOpenModal(false)
       // Invalidate the orders query to trigger a re-fetch.
-      void queryClient.invalidateQueries({ queryKey: [queryKey] })
+      void queryClient.invalidateQueries({ queryKey: ["saboresColores"] })
       return
     }
   }
@@ -107,20 +104,8 @@ export function AddInventoryModal({
                     >
                       <div className="flex flex-col gap-2 w-full">
                         <h1 className="text-2xl font-bold text-gray-900">
-                          Agregar a {title}
+                          Agregar a sabores y colores
                         </h1>
-                        <label
-                          htmlFor="gama"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Gama
-                        </label>
-                        <input
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          type="text"
-                          name="gama"
-                          required
-                        />
                         <label
                           htmlFor="articuloDescripcion"
                           className="block text-sm font-medium text-gray-700"

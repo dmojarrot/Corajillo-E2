@@ -12,7 +12,12 @@ export default function Tables({ inventory, orders, missingProduction }) {
         <OrdersTable orders={orders} />
       </div>
       {/* Inventario */}
-      <InventoryTable inventory={inventory} />
+      <InventoryTable
+        title="Inventario (procesos)"
+        formAction="api/db/addInventoryProceso"
+        inventory={inventory}
+        queryKey={"inventory"}
+      />
     </div>
   )
 }

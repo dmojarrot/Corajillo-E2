@@ -24,6 +24,11 @@ function NavBar() {
   const router = useRouter()
   const navigation = [
     { name: "Dashboard", href: "/", current: router.pathname === "/" },
+    {
+      name: "Inventario general",
+      href: "inventario",
+      current: router.pathname === "/inventario",
+    },
     { name: "Metas", href: "metas", current: router.pathname === "/metas" },
   ]
 
