@@ -5,9 +5,9 @@ import principalProgress from "../../public/ss.png"
 
 function Metas() {
   return (
-    <div className="pl-6">
+    <div>
       <Image
-        className="w-full h-[37em] mx-auto"
+        className="w-[50em] h-[35em] mx-auto"
         src={principalProgress}
         alt="Picture of the author"
       />

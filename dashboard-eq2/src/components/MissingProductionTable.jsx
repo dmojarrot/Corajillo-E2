@@ -47,7 +47,7 @@ function MissingProductionTable({ missingProduction }) {
                 <tr>
                   <th
                     scope="col"
-                    className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="pl-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Nombre
                   </th>
@@ -59,19 +59,19 @@ function MissingProductionTable({ missingProduction }) {
                   </th>
                   <th
                     scope="col"
-                    className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="pl-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Fecha de entrega
                   </th>
                   <th
                     scope="col"
-                    className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="pl-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Estado
                   </th>
                   <th
                     scope="col"
-                    className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="pl-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     # linea
                   </th>
@@ -81,7 +81,7 @@ function MissingProductionTable({ missingProduction }) {
                   >
                     Tiempo (horas)
                   </th>
-                  <th scope="col" className="relative px-6 py-3">
+                  <th scope="col" className="relative py-3">
                     <span className="sr-only">Edit</span>
                   </th>
                 </tr>
@@ -95,21 +95,21 @@ function MissingProductionTable({ missingProduction }) {
                           ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                         `}
                     >
-                      <td className="px-6 py-2 text-sm font-medium text-gray-900">
+                      <td className="pl-4 py-2 text-sm font-medium text-gray-900">
                         {pedido.NOMBRE}
                       </td>
-                      <td className="px-6 py-2 text-sm text-gray-500">
+                      <td className="pl-6 py-2 text-sm text-gray-500">
                         {pedido.PIEZAS}
                       </td>
-                      <td className="px-6 py-2 text-sm text-gray-500">
+                      <td className="pl-8 py-2 text-sm text-gray-500">
                         {new Date(
                           pedido["FECHA_DE_ENTREGA"]
                         ).toLocaleDateString()}
                       </td>
-                      <td>
+                      <td className="px-4">
                         <SelectMenu state={pedido["ESTADO"]} id={pedido.id} />
                       </td>
-                      <td className="px-6 py-2 text-sm text-gray-500">
+                      <td className="pl-4 py-2 text-sm text-gray-500">
                         <input
                           className="w-14 h-4 bg-transparent border border-gray-300 rounded-md py-3 px-1 disabled:border-transparent"
                           type="number"
@@ -123,7 +123,7 @@ function MissingProductionTable({ missingProduction }) {
                           disabled={pedido.id === disabledRow ? false : true}
                         />
                       </td>
-                      <td className="px-6 py-2 text-sm text-gray-500 whitespace-nowrap">
+                      <td className="pl-6 py-2 text-sm text-gray-500 whitespace-nowrap">
                         <input
                           className="w-14 h-4 bg-transparent border border-gray-300 rounded-md py-3 px-1 disabled:border-transparent"
                           type="number"
@@ -138,7 +138,7 @@ function MissingProductionTable({ missingProduction }) {
                         />
                       </td>
 
-                      <td className=" whitespace-nowrap text-right text-sm font-medium py-2 px-6">
+                      <td className=" whitespace-nowrap text-right text-sm font-medium py-2 pr-4">
                         <button
                           onClick={() => {
                             if (

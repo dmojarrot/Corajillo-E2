@@ -30,7 +30,7 @@ function OrdersTable({ orders }) {
                 <tr>
                   <th
                     scope="col"
-                    className="pl-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="pl-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     GAMA
                   </th>
@@ -66,23 +66,23 @@ function OrdersTable({ orders }) {
                           ${pedidoIdx % 2 === 0 ? "bg-white" : "bg-gray-50"}
                         `}
                   >
-                    <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <td className="pl-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
                       {pedido.GAMA}
                     </td>
-                    <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                    <td className="pl-6 py-2 whitespace-nowrap text-sm text-gray-500">
                       {pedido.PIEZAS}
                     </td>
-                    <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                    <td className="pl-6 py-2 whitespace-nowrap text-sm text-gray-500">
                       {new Date(pedido["FECHA_DE_PEDIDO"]).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                    <td className="pl-6 py-2 whitespace-nowrap text-sm text-gray-500">
                       {}
                       {new Date(
                         pedido["FECHA_DE_ENTREGA"]
                       ).toLocaleDateString()}
                     </td>
 
-                    <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-5 py-2 whitespace-nowrap text-right text-sm font-medium">
                       <a
                         href="#"
                         className="text-indigo-600 hover:text-indigo-900"
