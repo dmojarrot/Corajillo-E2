@@ -1,8 +1,10 @@
+import { AddMissingProductionModal } from "./AddMissingProductionModal"
 import SelectMenu from "./SelectMenu"
 import { useState } from "react"
 
 function MissingProductionTable({ missingProduction }) {
   const [disabledRow, setDisabledRow] = useState()
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [value, setValue] = useState({ linea: null, tiempo: null, id: null })
   const handleSubmit = async () => {
     // get the data from the state
@@ -33,9 +35,19 @@ function MissingProductionTable({ missingProduction }) {
   }
   return (
     <div>
+      <AddMissingProductionModal
+        formAction="api/db/addMissingProduction"
+        openModal={isModalOpen}
+        setOpenModal={setIsModalOpen}
+      />
       <div className="flex justify-between my-7 lg:my-0 items-center mb-2">
         <h1 className="text-lg font-bold pl-6">Calculos producción</h1>
-        <button className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded">
+        <button
+          onClick={() => {
+            setIsModalOpen(true)
+          }}
+          className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
+        >
           + Extra
         </button>
       </div>

@@ -1,8 +1,18 @@
 import { useState } from "react"
 import { AddOrderModal } from "./AddOrderModal"
+import { UpdateOrderModal } from "./UpdateOrderModal"
 
 function OrdersTable({ orders }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModal2Open, setIsModal2Open] = useState(false)
+
+  const [data, setData] = useState({
+    gama: "",
+    piezas: "",
+    fechaPedido: "",
+    fechaEntrega: "",
+    id: "",
+  })
 
   return (
     <div>
@@ -11,6 +21,14 @@ function OrdersTable({ orders }) {
         setOpenModal={setIsModalOpen}
         formAction="api/db/addOrder"
       />
+      <UpdateOrderModal
+        openModal={isModal2Open}
+        setOpenModal={setIsModal2Open}
+        formActionUpdate="api/db/updateOrder"
+        formActionDelete={"api/db/deleteOrder"}
+        row={data}
+      />
+
       <div className="flex justify-between my-7 lg:my-0 items-center mb-2">
         <h1 className="text-lg font-bold pl-6">Pedidos</h1>
         <button
@@ -83,12 +101,21 @@ function OrdersTable({ orders }) {
                     </td>
 
                     <td className="px-5 py-2 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => {
+                          setData({
+                            gama: pedido.GAMA,
+                            piezas: pedido.PIEZAS,
+                            fechaPedido: pedido["FECHA_DE_PEDIDO"],
+                            fechaEntrega: pedido["FECHA_DE_ENTREGA"],
+                            id: pedido.id,
+                          })
+                          setIsModal2Open(true)
+                        }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
-                        Edit
-                      </a>
+                        Editar
+                      </button>
                     </td>
                   </tr>
                 ))}

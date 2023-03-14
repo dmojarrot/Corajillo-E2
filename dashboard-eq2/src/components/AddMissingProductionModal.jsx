@@ -1,8 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { useQueryClient } from "@tanstack/react-query"
+import SelectMenu2 from "./SelectMenu2"
 
-export function AddOrderModal({ openModal, setOpenModal, formAction }) {
+export function AddMissingProductionModal({
+  openModal,
+  setOpenModal,
+  formAction,
+}) {
   const queryClient = useQueryClient()
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
@@ -13,12 +18,15 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
 
     // Get data from the form.
     const data = {
-      gama: form.gama.value,
+      nombre: form.nombre.value,
       piezas: form.piezas.value,
-      fechaPedido: form.fechaPedido.value,
       fechaEntrega: form.fechaEntrega.value,
+      estado: form.estado.value,
+      numeroLinea: form.numeroLinea.value,
+      tiempo: form.tiempo.value,
     }
 
+    console.log(data)
     // Send the form data to our API and get a response.
     const response = await fetch(formAction, {
       // Body of the request is the JSON data we created above.
@@ -38,11 +46,10 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
       // If the form works, close the modal.
       setOpenModal(false)
       // Invalidate the orders query to trigger a re-fetch.
-      void queryClient.invalidateQueries({ queryKey: ["orders"] })
+      void queryClient.invalidateQueries({ queryKey: ["missingProduction"] })
       return
     }
   }
-
   return (
     <>
       <Transition.Root show={openModal} as={Fragment}>
@@ -100,18 +107,18 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                     >
                       <div className="flex flex-col gap-2 w-full">
                         <h1 className="text-2xl font-bold text-gray-900">
-                          Agregar pedido
+                          Agregar producción extra
                         </h1>
                         <label
-                          htmlFor="gama"
+                          htmlFor="nombre"
                           className="block text-sm font-medium text-gray-700"
                         >
-                          Gama
+                          Nombre
                         </label>
                         <input
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           type="text"
-                          name="gama"
+                          name="nombre"
                           required
                         />
                         <label
@@ -128,18 +135,6 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                         />
 
                         <label
-                          htmlFor="fechaPedido"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Fecha de pedido
-                        </label>
-                        <input
-                          type="date"
-                          name="fechaPedido"
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          required
-                        />
-                        <label
                           htmlFor="fechaEntrega"
                           className="block text-sm font-medium text-gray-700"
                         >
@@ -148,6 +143,37 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                         <input
                           type="date"
                           name="fechaEntrega"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          required
+                        />
+                        <label
+                          htmlFor="estado"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Estado
+                        </label>
+                        <SelectMenu2 state="en espera" />
+                        <label
+                          htmlFor="numeroLinea"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Linea
+                        </label>
+                        <input
+                          type="number"
+                          name="numeroLinea"
+                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                          required
+                        />
+                        <label
+                          htmlFor="tiempo"
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Tiempo
+                        </label>
+                        <input
+                          type="number"
+                          name="tiempo"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           required
                         />

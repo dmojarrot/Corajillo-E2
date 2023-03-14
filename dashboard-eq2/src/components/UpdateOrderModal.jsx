@@ -2,7 +2,13 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 
-export function AddOrderModal({ openModal, setOpenModal, formAction }) {
+export function UpdateOrderModal({
+  openModal,
+  setOpenModal,
+  formActionUpdate,
+  formActionDelete,
+  row,
+}) {
   const queryClient = useQueryClient()
   const handleSubmit = async (event) => {
     // Stop the form from submitting and refreshing the page.
@@ -17,10 +23,40 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
       piezas: form.piezas.value,
       fechaPedido: form.fechaPedido.value,
       fechaEntrega: form.fechaEntrega.value,
+      id: row.id,
     }
 
     // Send the form data to our API and get a response.
-    const response = await fetch(formAction, {
+    const response = await fetch(formActionUpdate, {
+      // Body of the request is the JSON data we created above.
+      body: JSON.stringify(data),
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // The method is POST because we are sending data.
+      method: "POST",
+    })
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json()
+    if (result) {
+      // If the form works, close the modal.
+      setOpenModal(false)
+      // Invalidate the orders query to trigger a re-fetch.
+      void queryClient.invalidateQueries({ queryKey: ["orders"] })
+      return
+    }
+  }
+  const handleDelete = async () => {
+    // Get data from the form.
+    const data = {
+      id: row.id,
+    }
+
+    // Send the form data to our API and get a response.
+    const response = await fetch(formActionDelete, {
       // Body of the request is the JSON data we created above.
       body: JSON.stringify(data),
       // Tell the server we're sending JSON.
@@ -100,7 +136,7 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                     >
                       <div className="flex flex-col gap-2 w-full">
                         <h1 className="text-2xl font-bold text-gray-900">
-                          Agregar pedido
+                          Editar pedido
                         </h1>
                         <label
                           htmlFor="gama"
@@ -112,6 +148,7 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           type="text"
                           name="gama"
+                          defaultValue={row?.gama}
                           required
                         />
                         <label
@@ -123,6 +160,7 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                         <input
                           type="number"
                           name="piezas"
+                          defaultValue={row?.piezas}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           required
                         />
@@ -136,6 +174,7 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                         <input
                           type="date"
                           name="fechaPedido"
+                          defaultValue={row?.fechaPedido.substring(0, 10)}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           required
                         />
@@ -148,6 +187,7 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                         <input
                           type="date"
                           name="fechaEntrega"
+                          defaultValue={row?.fechaEntrega.substring(0, 10)}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           required
                         />
@@ -155,7 +195,14 @@ export function AddOrderModal({ openModal, setOpenModal, formAction }) {
                           className="mt-5 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                           type="submit"
                         >
-                          Agregar
+                          Actualizar
+                        </button>
+                        <button
+                          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                          type="button"
+                          onClick={() => handleDelete()}
+                        >
+                          Eliminar
                         </button>
                       </div>
                     </form>
