@@ -24,7 +24,7 @@ export function AddMissingProductionModal({
       estado: form.estado.value,
       numeroLinea: form.numeroLinea.value,
       tiempo: form.tiempo.value,
-    }(data)
+    }
     // Send the form data to our API and get a response.
     const response = await fetch(formAction, {
       // Body of the request is the JSON data we created above.
