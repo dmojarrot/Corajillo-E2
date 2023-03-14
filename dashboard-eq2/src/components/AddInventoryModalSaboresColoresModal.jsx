@@ -37,7 +37,7 @@ export function AddInventoryModalSaboresColores({
 
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
-    const result = await response.json()(result)
+    const result = await response.json()
     if (result) {
       // If the form works, close the modal.
       setOpenModal(false)

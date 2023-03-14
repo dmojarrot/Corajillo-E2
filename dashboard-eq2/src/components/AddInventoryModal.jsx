@@ -15,7 +15,7 @@ export function AddInventoryModal({
     event.preventDefault()
 
     // Cast the event target to an html form
-    const form = event.target(formActionAdd)
+    const form = event.target
 
     // Get data from the form.
     const data = form?.tarimas?.value
@@ -32,7 +32,7 @@ export function AddInventoryModal({
           costo: form.costo.value,
           piezas: form.piezas.value,
           total: form.total.value,
-        }(data)
+        }
 
     // Send the form data to our API and get a response.
     const response = await fetch(formActionAdd, {
@@ -48,7 +48,7 @@ export function AddInventoryModal({
 
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
-    const result = await response.json()(result)
+    const result = await response.json()
     if (result) {
       // If the form works, close the modal.
       setOpenModal(false)
