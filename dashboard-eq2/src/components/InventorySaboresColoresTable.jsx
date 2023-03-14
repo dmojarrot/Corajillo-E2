@@ -69,7 +69,7 @@ function InventorySaboresColoresTable({ inventory, formAction }) {
                   </th>
 
                   <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
+                    <span className="sr-only">Editar</span>
                   </th>
                 </tr>
               </thead>
@@ -108,7 +108,7 @@ function InventorySaboresColoresTable({ inventory, formAction }) {
                         }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
-                        Edit
+                        Editar
                       </button>
                     </td>
                   </tr>

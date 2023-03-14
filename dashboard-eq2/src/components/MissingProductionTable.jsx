@@ -94,7 +94,7 @@ function MissingProductionTable({ missingProduction }) {
                     Tiempo (horas)
                   </th>
                   <th scope="col" className="relative py-3">
-                    <span className="sr-only">Edit</span>
+                    <span className="sr-only">Editar</span>
                   </th>
                 </tr>
               </thead>

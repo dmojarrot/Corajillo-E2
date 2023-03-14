@@ -72,7 +72,7 @@ function OrdersTable({ orders }) {
                   </th>
 
                   <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
+                    <span className="sr-only">Editar</span>
                   </th>
                 </tr>
               </thead>
