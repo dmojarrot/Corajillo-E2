@@ -1,8 +1,28 @@
 import { useState } from "react"
 import { AddInventoryModal } from "./AddInventoryModal"
+import { UpdateInventoryModal } from "./UpdateInventoryModal"
 
-function InventoryTable({ inventory, title, formAction, queryKey }) {
+function InventoryTable({
+  inventory,
+  title,
+  formActionUpdate,
+  formActionDelete,
+  formActionAdd,
+  queryKey,
+}) {
+  formActionAdd
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false)
+  const [data, setData] = useState({
+    gama: "",
+    descripcion: "",
+    costo: "",
+    piezas: "",
+    total: "",
+    tarimas: "",
+    id: "",
+  })
+
   const isTitleProductoTerminado = title === "Producto terminado" ? true : false
   return (
     <div>
@@ -10,8 +30,16 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
         title={title}
         openModal={isModalOpen}
         setOpenModal={setIsModalOpen}
-        formAction={formAction}
+        formActionAdd={formActionAdd}
         queryKey={queryKey}
+      />
+      <UpdateInventoryModal
+        formActionDelete={formActionDelete}
+        formActionUpdate={formActionUpdate}
+        openModal={isModalOpenUpdate}
+        setOpenModal={setIsModalOpenUpdate}
+        queryKey={queryKey}
+        row={data}
       />
       <div className="flex justify-between mb-7 lg:my-0 items-center">
         <h1 className="text-lg font-bold pl-6">{title}</h1>
@@ -91,12 +119,23 @@ function InventoryTable({ inventory, title, formAction, queryKey }) {
                     </td>
 
                     <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => {
+                          setData({
+                            gama: pedido.GAMA,
+                            descripcion: pedido["ARTICULO-DESCRIPCION"],
+                            costo: pedido.COSTO,
+                            piezas: pedido.PIEZAS,
+                            total: pedido.TOTAL,
+                            tarimas: pedido?.TARIMAS,
+                            id: pedido.id,
+                          })
+                          setIsModalOpenUpdate(true)
+                        }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}

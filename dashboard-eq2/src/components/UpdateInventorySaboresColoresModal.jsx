@@ -2,12 +2,10 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 
-export function AddInventoryModal({
+export function UpdateInventorySaboresColoresModal({
   openModal,
   setOpenModal,
-  formActionAdd,
-  title,
-  queryKey,
+  row,
 }) {
   const queryClient = useQueryClient()
   const handleSubmit = async (event) => {
@@ -15,27 +13,19 @@ export function AddInventoryModal({
     event.preventDefault()
 
     // Cast the event target to an html form
-    const form = event.target(formActionAdd)
+    const form = event.target
 
     // Get data from the form.
-    const data = form?.tarimas?.value
-      ? {
-          gama: form.gama.value,
-          articuloDescripcion: form.articuloDescripcion.value,
-          costo: form.costo.value,
-          tarimas: form.tarimas.value,
-          total: form.total.value,
-        }
-      : {
-          gama: form.gama.value,
-          articuloDescripcion: form.articuloDescripcion.value,
-          costo: form.costo.value,
-          piezas: form.piezas.value,
-          total: form.total.value,
-        }(data)
+    const data = {
+      articuloDescripcion: form.articuloDescripcion.value,
+      costo: form.costo.value,
+      piezas: form.piezas.value,
+      total: form.total.value,
+      id: row.id,
+    }
 
     // Send the form data to our API and get a response.
-    const response = await fetch(formActionAdd, {
+    const response = await fetch("/api/db/updateInventorySaboresColores", {
       // Body of the request is the JSON data we created above.
       body: JSON.stringify(data),
       // Tell the server we're sending JSON.
@@ -48,12 +38,41 @@ export function AddInventoryModal({
 
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
-    const result = await response.json()(result)
+    const result = await response.json()
     if (result) {
       // If the form works, close the modal.
       setOpenModal(false)
       // Invalidate the orders query to trigger a re-fetch.
-      void queryClient.invalidateQueries({ queryKey: [queryKey] })
+      void queryClient.invalidateQueries({ queryKey: ["saborescolores"] })
+      return
+    }
+  }
+  const handleDelete = async () => {
+    // Get data from the form.
+    const data = {
+      id: row.id,
+    }
+
+    // Send the form data to our API and get a response.
+    const response = await fetch("/api/db/deleteInventorySaboresColores", {
+      // Body of the request is the JSON data we created above.
+      body: JSON.stringify(data),
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // The method is POST because we are sending data.
+      method: "POST",
+    })
+
+    // Get the response data from server as JSON.
+    // If server returns the name submitted, that means the form works.
+    const result = await response.json()
+    if (result) {
+      // If the form works, close the modal.
+      setOpenModal(false)
+      // Invalidate the orders query to trigger a re-fetch.
+      void queryClient.invalidateQueries({ queryKey: ["saborescolores"] })
       return
     }
   }
@@ -114,20 +133,8 @@ export function AddInventoryModal({
                     >
                       <div className="flex flex-col gap-2 w-full">
                         <h1 className="text-2xl font-bold text-gray-900">
-                          Agregar a {title}
+                          Agregar a sabores y colores
                         </h1>
-                        <label
-                          htmlFor="gama"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Gama
-                        </label>
-                        <input
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          type="text"
-                          name="gama"
-                          required
-                        />
                         <label
                           htmlFor="articuloDescripcion"
                           className="block text-sm font-medium text-gray-700"
@@ -138,6 +145,7 @@ export function AddInventoryModal({
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           type="text"
                           name="articuloDescripcion"
+                          defaultValue={row.descripcion}
                           required
                         />
 
@@ -151,6 +159,7 @@ export function AddInventoryModal({
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           type="number"
                           name="costo"
+                          defaultValue={row.costo}
                           required
                         />
                         <label
@@ -162,6 +171,7 @@ export function AddInventoryModal({
                         <input
                           type="number"
                           name="piezas"
+                          defaultValue={row.piezas}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         />
                         <label
@@ -173,13 +183,21 @@ export function AddInventoryModal({
                         <input
                           type="number"
                           name="total"
+                          defaultValue={row.total}
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         />
                         <button
                           className="mt-5 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                           type="submit"
                         >
-                          Agregar
+                          Actualizar
+                        </button>
+                        <button
+                          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                          type="button"
+                          onClick={() => handleDelete()}
+                        >
+                          Eliminar
                         </button>
                       </div>
                     </form>

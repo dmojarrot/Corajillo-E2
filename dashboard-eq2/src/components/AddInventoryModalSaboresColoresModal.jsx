@@ -2,12 +2,10 @@ import { Dialog, Transition } from "@headlessui/react"
 import { Fragment } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 
-export function AddInventoryModal({
+export function AddInventoryModalSaboresColores({
   openModal,
   setOpenModal,
-  formActionAdd,
-  title,
-  queryKey,
+  formAction,
 }) {
   const queryClient = useQueryClient()
   const handleSubmit = async (event) => {
@@ -15,27 +13,18 @@ export function AddInventoryModal({
     event.preventDefault()
 
     // Cast the event target to an html form
-    const form = event.target(formActionAdd)
+    const form = event.target
 
     // Get data from the form.
-    const data = form?.tarimas?.value
-      ? {
-          gama: form.gama.value,
-          articuloDescripcion: form.articuloDescripcion.value,
-          costo: form.costo.value,
-          tarimas: form.tarimas.value,
-          total: form.total.value,
-        }
-      : {
-          gama: form.gama.value,
-          articuloDescripcion: form.articuloDescripcion.value,
-          costo: form.costo.value,
-          piezas: form.piezas.value,
-          total: form.total.value,
-        }(data)
+    const data = {
+      articuloDescripcion: form.articuloDescripcion.value,
+      costo: form.costo.value,
+      piezas: form.piezas.value,
+      total: form.total.value,
+    }
 
     // Send the form data to our API and get a response.
-    const response = await fetch(formActionAdd, {
+    const response = await fetch(formAction, {
       // Body of the request is the JSON data we created above.
       body: JSON.stringify(data),
       // Tell the server we're sending JSON.
@@ -53,7 +42,7 @@ export function AddInventoryModal({
       // If the form works, close the modal.
       setOpenModal(false)
       // Invalidate the orders query to trigger a re-fetch.
-      void queryClient.invalidateQueries({ queryKey: [queryKey] })
+      void queryClient.invalidateQueries({ queryKey: ["saborescolores"] })
       return
     }
   }
@@ -114,20 +103,8 @@ export function AddInventoryModal({
                     >
                       <div className="flex flex-col gap-2 w-full">
                         <h1 className="text-2xl font-bold text-gray-900">
-                          Agregar a {title}
+                          Agregar a sabores y colores
                         </h1>
-                        <label
-                          htmlFor="gama"
-                          className="block text-sm font-medium text-gray-700"
-                        >
-                          Gama
-                        </label>
-                        <input
-                          className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          type="text"
-                          name="gama"
-                          required
-                        />
                         <label
                           htmlFor="articuloDescripcion"
                           className="block text-sm font-medium text-gray-700"

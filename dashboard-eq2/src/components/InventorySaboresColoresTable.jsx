@@ -1,8 +1,18 @@
 import { useState } from "react"
-import { AddInventoryModalSaboresColores } from "./AddInventoryModalSaboresColores"
+import { AddInventoryModalSaboresColores } from "./AddInventoryModalSaboresColoresModal"
+import { UpdateInventorySaboresColoresModal } from "./UpdateInventorySaboresColoresModal"
 
 function InventorySaboresColoresTable({ inventory, formAction }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
+  const [data, setData] = useState({
+    descripcion: "",
+    costo: "",
+    piezas: "",
+    total: "",
+    id: "",
+  })
+
   return (
     <div>
       <AddInventoryModalSaboresColores
@@ -10,6 +20,12 @@ function InventorySaboresColoresTable({ inventory, formAction }) {
         setOpenModal={setIsModalOpen}
         formAction={formAction}
       />
+      <UpdateInventorySaboresColoresModal
+        openModal={isUpdateModalOpen}
+        setOpenModal={setIsUpdateModalOpen}
+        row={data}
+      />
+
       <div className="flex justify-between mb-7 lg:my-0 items-center">
         <h1 className="text-lg font-bold pl-6">Sabores y colores</h1>
         <button
@@ -79,12 +95,21 @@ function InventorySaboresColoresTable({ inventory, formAction }) {
                     </td>
 
                     <td className="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="#"
+                      <button
+                        onClick={() => {
+                          setData({
+                            descripcion: pedido["ARTICULO-DESCRIPCION"],
+                            costo: pedido.COSTO,
+                            piezas: pedido.PIEZAS,
+                            total: pedido.TOTAL,
+                            id: pedido.id,
+                          })
+                          setIsUpdateModalOpen(true)
+                        }}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}

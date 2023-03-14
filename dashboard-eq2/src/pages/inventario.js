@@ -7,7 +7,7 @@ import getProductoTerminado from "@/lib/get_inventory_productoterminado"
 import InventorySaboresColoresTable from "@/components/InventorySaboresColoresTable"
 import getSaboresColores from "@/lib/get_inventory_saborescolores"
 
-export default function metas() {
+export default function Inventario() {
   const materiaprima = useQuery({
     queryKey: ["materiaPrima"],
     queryFn: getMateriaPrima,
@@ -18,8 +18,8 @@ export default function metas() {
     queryFn: getProceso,
   })
 
-  const saboresColores = useQuery({
-    queryKey: ["saboresColores"],
+  const saborescolores = useQuery({
+    queryKey: ["saborescolores"],
     queryFn: getSaboresColores,
   })
 
@@ -44,24 +44,30 @@ export default function metas() {
             <InventoryTable
               title="Materia prima"
               inventory={materiaprima}
-              formAction="api/db/addInventoryMateriaPrima"
+              formActionAdd="/api/db/addInventoryMateriaPrima"
+              formActionUpdate="/api/db/updateInventoryMateriaPrima"
+              formActionDelete="/api/db/deleteInventoryMateriaPrima"
               queryKey={"materiaPrima"}
             />
             <InventoryTable
               title="Proceso"
               inventory={proceso}
-              formAction="api/db/addInventoryProceso"
+              formActionAdd={"/api/db/addInventoryProceso"}
+              formActionUpdate="/api/db/updateInventoryProceso"
+              formActionDelete="/api/db/deleteInventoryProceso"
               queryKey={"proceso"}
             />
             <InventorySaboresColoresTable
-              inventory={saboresColores}
-              formAction="api/db/addInventorySaboresColores"
+              inventory={saborescolores}
+              formAction="/api/db/addInventorySaboresColores"
             />
 
             <InventoryTable
               title="Producto terminado"
               inventory={productoterminado}
-              formAction="api/db/addInventoryProductoTerminado"
+              formActionAdd="/api/db/addInventoryProductoTerminado"
+              formActionUpdate="/api/db/updateInventoryProductoTerminado"
+              formActionDelete="/api/db/deleteInventoryProductoTerminado"
               queryKey={"productoTerminado"}
             />
           </div>
@@ -79,7 +85,7 @@ export async function getServerSideProps() {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(["materiaPrima"], getMateriaPrima)
   await queryClient.prefetchQuery(["proceso"], getProceso)
-  await queryClient.prefetchQuery(["saboresColores"], getSaboresColores)
+  await queryClient.prefetchQuery(["saborescolores"], getSaboresColores)
   await queryClient.prefetchQuery(["productoTerminado"], getProductoTerminado)
 
   return {

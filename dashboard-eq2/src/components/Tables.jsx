@@ -14,7 +14,9 @@ export default function Tables({ inventory, orders, missingProduction }) {
       {/* Inventario */}
       <InventoryTable
         title="Inventario (procesos)"
-        formAction="api/db/addInventoryProceso"
+        formActionAdd="/api/db/addInventoryProceso"
+        formActionDelete="/api/db/deleteInventoryProceso"
+        formActionUpdate="/api/db/updateInventoryProceso"
         inventory={inventory}
         queryKey={"inventory"}
       />
