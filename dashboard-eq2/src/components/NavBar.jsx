@@ -32,7 +32,11 @@ function NavBar() {
       href: "inventario",
       current: router.pathname === "/inventario",
     },
-    { name: "Metas", href: "metas", current: router.pathname === "/metas" },
+    {
+      name: "Produccion",
+      href: "produccion",
+      current: router.pathname === "/produccion",
+    },
   ]
 
   return (

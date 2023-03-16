@@ -1,7 +1,7 @@
 import NavBar from "@/components/NavBar"
-import Metas from "@/layout/Metas"
+import Produccion from "@/layout/Produccion"
 
-export default function metas() {
+export default function produccion() {
   return (
     <>
       <div className="min-h-full">
@@ -15,7 +15,7 @@ export default function metas() {
         </header>
         <main>
           <div className="h-screen pt-10 bg-[#252733]">
-            <Metas />
+            <Produccion />
           </div>
         </main>
       </div>

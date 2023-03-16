@@ -3,7 +3,7 @@ import Image from "next/image"
 
 import principalProgress from "../../public/ss.png"
 
-function Metas() {
+function Produccion() {
   return (
     <div className="">
       <Image
@@ -15,4 +15,4 @@ function Metas() {
   )
 }
 
-export default Metas
+export default Produccion
