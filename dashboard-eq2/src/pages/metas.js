@@ -14,7 +14,7 @@ export default function metas() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl pt-6 sm:px-6 lg:px-8">
+          <div className="h-screen pt-10 bg-[#252733]">
             <Metas />
           </div>
         </main>

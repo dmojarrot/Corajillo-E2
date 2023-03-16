@@ -5,7 +5,7 @@ import principalProgress from "../../public/ss.png"
 
 function Metas() {
   return (
-    <div>
+    <div className="">
       <Image
         className="w-[50em] h-[35em] mx-auto"
         src={principalProgress}
