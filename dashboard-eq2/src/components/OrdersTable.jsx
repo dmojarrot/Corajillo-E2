@@ -31,14 +31,19 @@ function OrdersTable({ orders }) {
 
       <div className="flex justify-between my-7 lg:my-0 items-center mb-2">
         <h1 className="text-lg font-bold pl-6">Pedidos</h1>
-        <button
-          onClick={() => {
-            setIsModalOpen(true)
-          }}
-          className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
-        >
-          + Agregar
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              setIsModalOpen(true)
+            }}
+            className=" text-white bg-indigo-600 font-bold px-3 py-1 rounded"
+          >
+            + Agregar
+          </button>
+          <button className=" text-white bg-green-600 font-bold px-3 ml-2 py-1 rounded">
+            Excel
+          </button>
+        </div>
       </div>
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
