@@ -1,4 +1,4 @@
-Web Platform for Company Inventory and Production Management
+Web Platform for Corajillo Inventory and Production Management
 ------------------------------------------------------------
 
 This web platform is designed to help companies manage their inventory and production on a daily basis. The platform allows users to register orders and inventory, and calculates the amount of daily production based on the data entered. This process is automated during the first shift of the day, except for data entry. At the end of each shift, progress and production are recorded on the platform, and a new calculation is made to provide a clear work target for the next shift. All data is saved in an inventory and recorded in a production history.
