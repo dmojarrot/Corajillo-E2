@@ -1,38 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Web Platform for Company Inventory and Production Management
+------------------------------------------------------------
 
-## Getting Started
+This web platform is designed to help companies manage their inventory and production on a daily basis. The platform allows users to register orders and inventory, and calculates the amount of daily production based on the data entered. This process is automated during the first shift of the day, except for data entry. At the end of each shift, progress and production are recorded on the platform, and a new calculation is made to provide a clear work target for the next shift. All data is saved in an inventory and recorded in a production history.
 
-First, run the development server:
+Technology
+----------
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The platform utilizes the web technology Next.js to take advantage of server-side rendering, which allows for faster and more efficient page loading. This not only improves user experience but also ensures that the page is properly adapted to different devices.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In addition, the platform is designed to be very secure and reliable by using servers hosted on AWS. This ensures that data is protected and available for most of the time.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+For data storage, relational databases are used which are an excellent choice as they offer a well-defined data structure, facilitating information management and analysis. Relational databases also offer the ability to ensure data integrity through the application of integrity constraints, meaning that stored data is accurate and reliable.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+It is important to note that the relational databases are hosted on the AWS server, guaranteeing the availability and security of the stored data.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Installation
+------------
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To install and run the platform, follow these steps:
 
-## Learn More
+1. Clone the repository from Github.
+2. Install the required dependencies using `npm install`.
+3. Set up a PostgreSQL database instance and configure the database connection in the `.env` file.
+4. Start the development server using `npm run dev`.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+License
+-------
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.
